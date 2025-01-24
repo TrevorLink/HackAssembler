@@ -1,17 +1,30 @@
 package com.noctis.assembler.parser;
 
 import com.noctis.assembler.common.InstructionType;
+import com.noctis.assembler.utils.StringUtils;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Noctis
  * @date 2025/01/24
  */
 public class InstructionParser {
-
-   private final String hackAsmFileLocation;
+   private final List<String> instructionList;
+   private int index;
+   private final String currentInstruction = null;
 
    protected InstructionParser(String hackAsmFileLocation) {
-      this.hackAsmFileLocation = hackAsmFileLocation;
+      index = 0;
+      try {
+         instructionList = Files.lines(Paths.get(hackAsmFileLocation)).collect(Collectors.toList());
+      } catch (IOException e) {
+         throw new RuntimeException("Error occurred when reading file :" + hackAsmFileLocation);
+      }
    }
 
 
@@ -21,7 +34,7 @@ public class InstructionParser {
     * @return whether more instruction line remains
     */
    protected boolean hasMoreLines() {
-      return false;
+      return index < instructionList.size();
    }
 
    /**
@@ -30,6 +43,10 @@ public class InstructionParser {
     * @return current instruction
     */
    protected String advance() {
+      if (StringUtils.isEmpty(currentInstruction) || !hasMoreLines()) {
+         return null;
+      }
+      String instruction = instructionList.get(index++);
       return null;
    }
 
