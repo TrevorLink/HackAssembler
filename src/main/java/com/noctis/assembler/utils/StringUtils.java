@@ -7,7 +7,7 @@ package com.noctis.assembler.utils;
 public class StringUtils {
 
    public static boolean isNotEmpty(String str) {
-      return str != null && str.isEmpty();
+      return str != null && !str.isEmpty();
    }
 
    public static boolean isEmpty(String str) {
