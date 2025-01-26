@@ -1,5 +1,6 @@
 package com.noctis.assembler.symboltable;
 
+import com.noctis.assembler.common.HackConstants;
 import com.noctis.assembler.utils.StringUtils;
 
 import java.util.HashMap;
@@ -10,9 +11,8 @@ import java.util.Map;
  * @date 2025/01/24
  */
 public class SymbolTable {
-
-   public static final int SYMBOL_MISSING_DEFAULT_VALUE = -1;
    private final Map<String, Integer> symbolTable;
+   private int variableAddress;
 
    /**
     * Get hack assembler's symbol table with pre-defined symbol loaded
@@ -20,7 +20,13 @@ public class SymbolTable {
    public SymbolTable() {
       //Creates a new empty symbol table
       this.symbolTable = new HashMap<>();
+      variableAddress = 16;
       loadPreDefinedSymbol();
+   }
+
+   public void addEntry(String symbol) {
+      addEntry(symbol, variableAddress);
+      variableAddress++;
    }
 
    public void addEntry(String symbol, Integer address) {
@@ -38,9 +44,9 @@ public class SymbolTable {
 
    public int getAddress(String symbol) {
       if (StringUtils.isNotEmpty(symbol)) {
-         symbolTable.getOrDefault(symbol, SYMBOL_MISSING_DEFAULT_VALUE);
+         return symbolTable.getOrDefault(symbol, HackConstants.SYMBOL_MISSING_DEFAULT_ADDRESS);
       }
-      return SYMBOL_MISSING_DEFAULT_VALUE;
+      return HackConstants.SYMBOL_MISSING_DEFAULT_ADDRESS;
    }
 
    private void loadPreDefinedSymbol() {

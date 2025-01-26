@@ -34,6 +34,7 @@ public class CInstructionCodeGenerator {
       map.put("-1", "0111010");
       map.put("D", "0001100");
       map.put("A", "0110000");
+      map.put("M", "1110000");
       map.put("!D", "0001101");
       map.put("!A", "0110001");
       map.put("!M", "1110001");
